@@ -1,0 +1,11 @@
+{% extends 'layout.html' %} {% block title %}Order{% endblock %} {% block
+content %}
+<h2>Order Confirmation</h2>
+<p>You are about to order: <strong>{{ pizza[1] }}</strong></p>
+<p>Description: {{ pizza[2] }}</p>
+<p>Price: ${{ pizza[3] }}</p>
+<form method="POST">
+  <button type="submit" class="btn btn-success">Confirm Order</button>
+  <a href="{{ url_for('menu') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
