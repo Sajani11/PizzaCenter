@@ -1,11 +1,43 @@
 {% extends 'layout.html' %} {% block title %}Order{% endblock %} {% block
 content %}
-<h2>Order Confirmation</h2>
-<p>You are about to order: <strong>{{ pizza[1] }}</strong></p>
-<p>Description: {{ pizza[2] }}</p>
-<p>Price: ${{ pizza[3] }}</p>
-<form method="POST">
-  <button type="submit" class="btn btn-success">Confirm Order</button>
-  <a href="{{ url_for('menu') }}" class="btn btn-secondary">Cancel</a>
-</form>
+<div class="card mx-auto my-4 shadow" style="max-width: 600px">
+  <img src="{{ pizza[4] }}" class="card-img-top" alt="{{ pizza[1] }}" />
+
+  <div class="card-body">
+    <h2 class="card-title">{{ pizza[1] }}</h2>
+    <p class="card-text"><strong>Description:</strong> {{ pizza[2] }}</p>
+    <p class="card-text"><strong>Price:</strong> ${{ pizza[3] }}</p>
+
+    <form method="POST">
+      <div class="mb-3">
+        <label for="quantity" class="form-label">Quantity</label>
+        <input
+          type="number"
+          name="quantity"
+          id="quantity"
+          class="form-control"
+          value="1"
+          min="1"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="payment_method" class="form-label"
+          >Select Payment Method</label
+        >
+        <select name="payment_method" class="form-control" required>
+          <option value="cash">Cash on Delivery</option>
+          <option value="credit_card">Esewa</option>
+          <option value="paypal">Mobile Banking</option>
+        </select>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <a href="{{ url_for('menu') }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-success">Confirm Order</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

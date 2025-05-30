@@ -1,0 +1,40 @@
+{% extends 'layout.html' %} {% block title %}Order{% endblock %} {% block
+content %}
+<h2>Order Confirmation</h2>
+<p>You are about to order: <strong>{{ pizza[1] }}</strong></p>
+<p>Description: {{ pizza[2] }}</p>
+<p>Original Price: ${{ pizza[3] }}</p>
+
+{% if discount > 0 %}
+<p>Discount applied: 5% off</p>
+<p>Discounted Price: ${{ price }}</p>
+{% else %}
+<p>No discount applied</p>
+{% endif %}
+
+<form method="POST">
+  <div class="mb-3">
+    <label>Quantity</label>
+    <input
+      type="number"
+      name="quantity"
+      class="form-control"
+      value="1"
+      min="1"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="payment_method">Select Payment Method:</label>
+    <select name="payment_method" class="form-control" required>
+      <option value="cash">Cash on Delivery</option>
+      <option value="credit_card">Esewa</option>
+      <option value="paypal">Mobile banking</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-success">Confirm Order</button>
+  <a href="{{ url_for('menu') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

@@ -11,35 +11,70 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
   </head>
 
-  <body>
+  <body style="background-color: #f8f9fa; color: #333">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      class="navbar navbar-expand-lg navbar-light"
+      style="background-color: #f0f8ff"
+    >
       <div class="container">
-        <a class="navbar-brand" href="{{ url_for('index') }}">PizzaApp</a>
+        <a
+          class="navbar-brand"
+          href="{{ url_for('index') }}"
+          style="color: #007bff"
+          >PizzaApp</a
+        >
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ms-auto">
             {% if 'username' in session %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('menu') }}">Menu</a>
+              <a
+                class="nav-link"
+                href="{{ url_for('menu') }}"
+                style="color: #007bff"
+                >Menu</a
+              >
             </li>
             {% if session['role'] == 'admin' %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('admin_dashboard') }}"
+              <a
+                class="nav-link"
+                href="{{ url_for('admin_dashboard') }}"
+                style="color: #007bff"
                 >Admin</a
               >
             </li>
             {% endif %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+              <a
+                class="nav-link"
+                href="{{ url_for('logout') }}"
+                style="color: #007bff"
+                >Logout</a
+              >
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+              <a
+                class="nav-link"
+                href="{{ url_for('login') }}"
+                style="color: #007bff"
+                >Login</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+              <a
+                class="nav-link"
+                href="{{ url_for('register') }}"
+                style="color: #007bff"
+                >Register</a
+              >
             </li>
             {% endif %}
           </ul>
@@ -55,9 +90,14 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center mt-5 py-3">
+    <footer
+      class="bg-light text-center mt-5 py-3"
+      style="background-color: #f0f8ff"
+    >
       &copy; 2025 PizzaApp. All Rights Reserved.
     </footer>
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='scripts/scripts.js') }}"></script>
   </body>
-  <script src="{{ url_for('static', filename='scripts/scripts.js') }}"></script>
 </html>

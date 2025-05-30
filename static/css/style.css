@@ -1,0 +1,38 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+main {
+  flex: 1 0 auto;
+  padding: 20px 0;
+}
+
+footer {
+  flex-shrink: 0;
+  background-color: #f0f8ff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.navbar {
+  padding: 1rem 0;
+  background-color: #f0f8ff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.alert {
+  margin-top: 1rem;
+}

@@ -3,15 +3,33 @@
 <h2>Pizza Menu</h2>
 <div class="row">
   {% for pizza in pizzas %}
-  <div class="col-md-4">
-    <div class="card mb-4">
+  <div class="col-md-3 mb-4">
+    <!-- Use col-md-3 for 4 items per row -->
+    <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{ pizza[1] }}</h5>
         <p class="card-text">{{ pizza[2] }}</p>
-        <p><strong>${{ pizza[3] }}</strong></p>
+        <p><strong>Rs.{{ pizza[3] }}</strong></p>
+
+        {% if pizza[4] %}
+        <img
+          src="{{ url_for('static', filename='pizza_images/' + pizza[4].split('/')[-1]) }}"
+          alt="{{ pizza[1] }}"
+          class="card-img-top"
+          height="200"
+        />
+        {% else %}
+        <img
+          src="{{ url_for('static', filename='pizza_images/default_image.jpg') }}"
+          alt="Default Pizza"
+          class="card-img-top"
+          height="200"
+        />
+        {% endif %}
+
         <a
           href="{{ url_for('order', pizza_id=pizza[0]) }}"
-          class="btn btn-warning"
+          class="btn btn-warning mt-2"
           >Order Now</a
         >
       </div>

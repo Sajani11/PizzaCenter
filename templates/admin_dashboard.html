@@ -1,13 +1,14 @@
 {% extends 'layout.html' %} {% block title %}Admin Dashboard{% endblock %} {%
 block content %}
-<h2>All Orders</h2>
-<table class="table table-bordered">
+<h2>Admin Dashboard</h2>
+<table class="table">
   <thead>
     <tr>
       <th>Order ID</th>
-      <th>User</th>
+      <th>Username</th>
       <th>Pizza</th>
       <th>Status</th>
+      <th>Payment Method</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +18,7 @@ block content %}
       <td>{{ order[1] }}</td>
       <td>{{ order[2] }}</td>
       <td>{{ order[3] }}</td>
+      <td>{{ order[4] }}</td>
     </tr>
     {% endfor %}
   </tbody>
