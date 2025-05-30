@@ -80,23 +80,45 @@ def menu():
     cur.close()
     return render_template('menu.html', pizzas=pizzas)
 
-@app.route('/order', methods=['GET', 'POST'])
-def order():
-    pizza_id = request.args.get('pizza_id')  
+@app.route('/order/<int:pizza_id>', methods=['GET', 'POST'])
+def order(pizza_id):
+    if 'user_id' not in session:
+        flash('Please log in to place an order.')
+        return redirect(url_for('login'))
+
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM pizzas WHERE id = %s", (pizza_id,))
     pizza = cur.fetchone()
-    cur.close()
 
-    
-    price = pizza[3]  
-    if price > 500:
-        discount = 0.05  
-        discounted_price = price - (price * discount)
-    else:
-        discount = 0  
-        discounted_price = price
-    return render_template('order_confirmation.html', pizza=pizza, price=discounted_price, discount=discount)
+    if request.method == 'POST':
+        quantity = int(request.form['quantity'])
+        payment_method = request.form['payment_method']
+        total_price = quantity * pizza[3]  
+
+        
+        cur.execute("""
+            INSERT INTO orders (user_id, pizza_id, quantity, payment_method, total_price, status)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """, (session['user_id'], pizza_id, quantity, payment_method, total_price, 'pending'))
+        mysql.connection.commit()
+
+        order_id = cur.lastrowid  
+
+        
+        cur.execute("""
+            SELECT o.id, u.username, p.name, o.quantity, p.price, o.total_price, o.payment_method
+            FROM orders o
+            JOIN users u ON o.user_id = u.id
+            JOIN pizzas p ON o.pizza_id = p.id
+            WHERE o.id = %s
+        """, (order_id,))
+        order_details = cur.fetchone()
+        cur.close()
+
+        return render_template('order_confirmation.html', order=order_details)
+
+    cur.close()
+    return render_template('order.html', pizza=pizza)
 
 
 
