@@ -1,22 +1,22 @@
-{% extends 'layout.html' %} {% block title %}Order{% endblock %} {% block
-content %}
+{% extends 'layout.html' %}
 
+{% block title %}Order{% endblock %}
+
+{% block content %}
 <div class="container my-4">
-  {% with messages = get_flashed_messages() %} {% if messages %}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
   <div class="alert alert-success">
     {% for message in messages %}
     <p>{{ message }}</p>
     {% endfor %}
   </div>
-  {% endif %} {% endwith %}
+  {% endif %}
+  {% endwith %}
 
-  <div class="card mx-auto shadow" style="max-width: 600px">
-    <img
-      src="{{ pizza[4] }}"
-      class="card-img-top"
-      alt="{{ pizza[1] }}"
-      height="300"
-    />
+  <div class="card mx-auto shadow" style="max-width: 600px;">
+    <!-- Image of the pizza -->
+    <img src="{{ pizza[4] }}" class="card-img-top" alt="{{ pizza[1] }}" height="300" />
 
     <div class="card-body">
       <h2 class="card-title">{{ pizza[1] }}</h2>
@@ -24,30 +24,23 @@ content %}
       <p class="card-text"><strong>Price per unit:</strong> ${{ pizza[3] }}</p>
 
       <form method="POST">
+        <!-- Quantity input -->
         <div class="mb-3">
           <label for="quantity" class="form-label">Quantity</label>
-          <input
-            type="number"
-            name="quantity"
-            id="quantity"
-            class="form-control"
-            value="1"
-            min="1"
-            required
-          />
+          <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" required />
         </div>
 
+        <!-- Payment method selection -->
         <div class="mb-3">
-          <label for="payment_method" class="form-label"
-            >Select Payment Method</label
-          >
+          <label for="payment_method" class="form-label">Select Payment Method</label>
           <select name="payment_method" class="form-control" required>
-            <option value="cash">Cash on Delivery</option>
-            <option value="credit_card">Esewa</option>
-            <option value="paypal">Mobile Banking</option>
+            <option value="cash" {% if pizza[5] == 'cash' %}selected{% endif %}>Cash on Delivery</option>
+            <option value="credit_card" {% if pizza[5] == 'credit_card' %}selected{% endif %}>Esewa</option>
+            <option value="paypal" {% if pizza[5] == 'paypal' %}selected{% endif %}>Mobile Banking</option>
           </select>
         </div>
 
+        <!-- Submit button -->
         <div class="d-flex justify-content-between">
           <a href="{{ url_for('menu') }}" class="btn btn-secondary">Cancel</a>
           <button type="submit" class="btn btn-success">Confirm Order</button>
@@ -56,5 +49,4 @@ content %}
     </div>
   </div>
 </div>
-
 {% endblock %}

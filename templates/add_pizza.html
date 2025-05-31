@@ -1,0 +1,51 @@
+{% extends "layout.html" %} {% block title %}Add Pizza - Admin{% endblock %} {%
+block content %}
+<h2 class="mb-4 text-primary">Add a New Pizza</h2>
+<form
+  method="POST"
+  enctype="multipart/form-data"
+  class="bg-white p-4 rounded shadow-sm"
+>
+  <div class="mb-3">
+    <label for="name" class="form-label">Pizza Name</label>
+    <input type="text" class="form-control" name="name" id="name" required />
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea
+      class="form-control"
+      name="description"
+      id="description"
+      rows="3"
+      required
+    ></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="price" class="form-label">Price (Rs)</label>
+    <input
+      type="number"
+      class="form-control"
+      name="price"
+      id="price"
+      step="0.01"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="photo" class="form-label">Upload Image</label>
+    <input
+      class="form-control"
+      type="file"
+      name="photo"
+      id="photo"
+      accept="image/*"
+      required
+    />
+  </div>
+
+  <button type="submit" class="btn btn-success">Add Pizza</button>
+</form>
+{% endblock %}
