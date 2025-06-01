@@ -35,8 +35,8 @@
           <label for="payment_method" class="form-label">Select Payment Method</label>
           <select name="payment_method" class="form-control" required>
             <option value="cash" {% if pizza[5] == 'cash' %}selected{% endif %}>Cash on Delivery</option>
-            <option value="credit_card" {% if pizza[5] == 'credit_card' %}selected{% endif %}>Esewa</option>
-            <option value="paypal" {% if pizza[5] == 'paypal' %}selected{% endif %}>Mobile Banking</option>
+            <option value="esewa" {% if pizza[5] == 'esewa' %}selected{% endif %}>Esewa</option>
+            <option value="GIME" {% if pizza[5] == 'GIME' %}selected{% endif %}>Mobile Banking</option>
           </select>
         </div>
 
