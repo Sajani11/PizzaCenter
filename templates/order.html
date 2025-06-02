@@ -3,49 +3,79 @@
 {% block title %}Order{% endblock %}
 
 {% block content %}
-<div class="container my-4">
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-  <div class="alert alert-success">
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
-  </div>
-  {% endif %}
-  {% endwith %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Place Your Order</h2>
 
-  <div class="card mx-auto shadow" style="max-width: 600px;">
-    <!-- Image of the pizza -->
-    <img src="{{ pizza[4] }}" class="card-img-top" alt="{{ pizza[1] }}" height="300" />
-
-    <div class="card-body">
-      <h2 class="card-title">{{ pizza[1] }}</h2>
-      <p class="card-text"><strong>Description:</strong> {{ pizza[2] }}</p>
-      <p class="card-text"><strong>Price per unit:</strong> ${{ pizza[3] }}</p>
-
-      <form method="POST">
-        <!-- Quantity input -->
-        <div class="mb-3">
-          <label for="quantity" class="form-label">Quantity</label>
-          <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" required />
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Order Details</h5>
         </div>
+        <div class="card-body">
+          <form action="{{ url_for('order', pizza_id=pizza.id) }}" method="POST">
+            
+            <!-- Quantity -->
+            <div class="mb-3">
+              <label for="quantity" class="form-label">Quantity</label>
+              <input
+                type="number"
+                class="form-control"
+                id="quantity"
+                name="quantity"
+                min="1"
+                value="1"
+                required
+              />
+            </div>
 
-        <!-- Payment method selection -->
-        <div class="mb-3">
-          <label for="payment_method" class="form-label">Select Payment Method</label>
-          <select name="payment_method" class="form-control" required>
-            <option value="cash" {% if pizza[5] == 'cash' %}selected{% endif %}>Cash on Delivery</option>
-            <option value="esewa" {% if pizza[5] == 'esewa' %}selected{% endif %}>Esewa</option>
-            <option value="GIME" {% if pizza[5] == 'GIME' %}selected{% endif %}>Mobile Banking</option>
-          </select>
-        </div>
+            <!-- Pizza Type (Veg or Non-Veg) -->
+            <div class="mb-3">
+              <label for="pizza_type" class="form-label">Pizza Type</label>
+              <select class="form-control" id="pizza_type" name="pizza_type" required>
+                <option value="Veg" {% if pizza.type == 'Veg' %}selected{% endif %}>Veg</option>
+                <option value="Non-Veg" {% if pizza.type == 'Non-Veg' %}selected{% endif %}>Non-Veg</option>
+              </select>
+            </div>
 
-        <!-- Submit button -->
-        <div class="d-flex justify-content-between">
-          <a href="{{ url_for('menu') }}" class="btn btn-secondary">Cancel</a>
-          <button type="submit" class="btn btn-success">Confirm Order</button>
+            <!-- Pizza Size (Small, Medium, Large) -->
+            <div class="mb-3">
+              <label for="pizza_size" class="form-label">Pizza Size</label>
+              <select class="form-control" id="pizza_size" name="pizza_size" required>
+                <option value="Small" {% if pizza.size == 'Small' %}selected{% endif %}>Small</option>
+                <option value="Medium" {% if pizza.size == 'Medium' %}selected{% endif %}>Medium</option>
+                <option value="Large" {% if pizza.size == 'Large' %}selected{% endif %}>Large</option>
+              </select>
+            </div>
+
+            <!-- Delivery Address -->
+            <div class="mb-3">
+              <label for="address" class="form-label">Delivery Address</label>
+              <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Place Order</button>
+          </form>
         </div>
-      </form>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <img
+          src="{{ url_for('static', filename='pizza_images/' + pizza.image_url) }}"
+          class="card-img-top"
+          alt="{{ pizza.name }}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ pizza.name }}</h5>
+          <p class="card-text">{{ pizza.description }}</p>
+          <p class="card-text">
+            <strong>Price:</strong> Rs{{ pizza.price }}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

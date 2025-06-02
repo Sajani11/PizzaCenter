@@ -1,19 +1,18 @@
 {% extends 'layout.html' %} {% block title %}Order Confirmation{% endblock %} {%
 block content %}
-<div class="container mt-5">
-  <div class="card shadow p-4">
+<div class="container mt-5 text-center">
+  <div class="card shadow-lg p-4 rounded">
     <h2 class="text-success mb-4">🎉 Order Confirmed!</h2>
-    <p><strong>Order ID:</strong> {{ order[0] }}</p>
-    <p><strong>Username:</strong> {{ order[1] }}</p>
-    <p><strong>Pizza:</strong> {{ order[2] }}</p>
-    <p><strong>Quantity:</strong> {{ order[3] }}</p>
-    <p><strong>Price per Pizza:</strong> Rs. {{ order[4] }}</p>
-    <p><strong>Total Price:</strong> <strong>Rs. {{ order[5] }}</strong></p>
-    <p><strong>Payment Method:</strong> {{ order[6] }}</p>
+    <p><strong>Order ID:</strong> {{ order.id }}</p>
+    <p><strong>Pizza:</strong> {{ order.pizza.name }}</p>
+    <p><strong>Total:</strong> Rs. {{ order.total_price }}</p>
+    <p><strong>Status:</strong> {{ order.status }}</p>
 
-    <a href="{{ url_for('menu') }}" class="btn btn-primary mt-4"
-      >Back to Menu</a
-    >
+    <div class="mt-4">
+      <a href="{{ url_for('index') }}" class="btn btn-outline-primary"
+        >Back to Menu</a
+      >
+    </div>
   </div>
 </div>
 {% endblock %}

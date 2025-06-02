@@ -1,40 +1,44 @@
 {% extends 'layout.html' %} {% block title %}Menu{% endblock %} {% block content
 %}
-<h2>Pizza Menu</h2>
-<div class="row">
-  {% for pizza in pizzas %}
-  <div class="col-md-3 mb-4">
-    <!-- Use col-md-3 for 4 items per row -->
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{ pizza[1] }}</h5>
-        <p class="card-text">{{ pizza[2] }}</p>
-        <p><strong>Rs.{{ pizza[3] }}</strong></p>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Pizza Menu</h2>
 
-        {% if pizza[4] %}
+  <!-- Pizza Cards -->
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for pizza in pizzas %}
+    <div class="col">
+      <div class="card shadow pizza-card">
         <img
-          src="{{ url_for('static', filename='pizza_images/' + pizza[4].split('/')[-1]) }}"
-          alt="{{ pizza[1] }}"
+          src="{{ url_for('static', filename='pizza_images/' + pizza.image_url) }}"
           class="card-img-top"
-          height="200"
+          alt="{{ pizza.name }}"
         />
-        {% else %}
-        <img
-          src="{{ url_for('static', filename='pizza_images/default_image.jpg') }}"
-          alt="Default Pizza"
-          class="card-img-top"
-          height="200"
-        />
-        {% endif %}
-
-        <a
-          href="{{ url_for('order', pizza_id=pizza[0]) }}"
-          class="btn btn-warning mt-2"
-          >Order Now</a
-        >
+        <div class="card-body">
+          <h5 class="card-title">{{ pizza.name }}</h5>
+          <p class="card-text">{{ pizza.description }}</p>
+          <p class="card-text">
+            <strong>Price:</strong> Rs {{'%2f' % pizza.price }}
+          </p>
+          <a
+            href="{{ url_for('order', pizza_id=pizza.id) }}"
+            class="btn btn-primary"
+            >Order Now</a
+          >
+        </div>
       </div>
     </div>
+    {% endfor %}
   </div>
-  {% endfor %}
 </div>
+
+{% endblock %} {% block styles %}
+<style>
+  .pizza-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .pizza-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+  }
+</style>
 {% endblock %}

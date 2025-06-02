@@ -1,0 +1,15 @@
+{% extends 'layout.html' %} {% block title %}Payment Failed{% endblock %} {%
+block content %}
+<div class="container mt-5">
+  <h2>Payment Failed</h2>
+  <p>
+    Your payment could not be processed. Please try again or choose another
+    payment method.
+  </p>
+  <p>Order ID: {{ order.id }}</p>
+  <p>Pizza: {{ order.pizza.name }}</p>
+  <p>Total Price: Rs. {{ order.total_price }}</p>
+  <p>Status: {{ order.status }}</p>
+  <a href="{{ url_for('index') }}" class="btn btn-primary">Return to Menu</a>
+</div>
+{% endblock%}
